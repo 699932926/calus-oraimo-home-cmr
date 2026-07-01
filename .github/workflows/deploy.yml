@@ -1,9 +1,10 @@
-      - name: Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # Ajout nécessaire pour permettre à l'action de lire le code
+    steps:
+      - uses: actions/checkout@v4
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: sftp  # Ajoutez cette ligne
-          port: 22        # Changez le port 21 pour le 22 (port SFTP)
-          server-dir: ./
+          token: ${{ secrets.GITHUB_TOKEN }} # Utilisation du token automatique
+      # ... le reste de votre configuration FTP/SFTP
