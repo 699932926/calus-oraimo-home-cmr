@@ -1,27 +1,16 @@
 name: Build et Deploiement pour LWS
-
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
-      - name: Checkout du code
-        uses: actions/checkout@v4
-
-      - name: Installation des dependances
-        run: npm install
-
-      - name: Execution du Build
-        run: npm run build
-
-      - name: Televerser l'artifact (v4)
-        uses: actions/upload-artifact@v4
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npm run build
+      - uses: actions/upload-artifact@v4
         with:
           name: mon-site-dist
           path: dist
