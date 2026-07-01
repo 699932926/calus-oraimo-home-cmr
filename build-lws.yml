@@ -1,16 +1,12 @@
-name: Build pour LWS
-on:
-  workflow_dispatch:
+name: Build
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build
-        run: |
-          mkdir -p dist
-          echo "Hello LWS" > dist/index.html
+      - run: mkdir -p dist && echo "Hello LWS" > dist/index.html
       - uses: actions/upload-artifact@v3
         with:
           name: dist-lws
-          path: dist
+          path: dist/
