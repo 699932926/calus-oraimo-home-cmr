@@ -1,10 +1,25 @@
+name: Deploy to LWS
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read # Ajout nécessaire pour permettre à l'action de lire le code
+      contents: read
     steps:
-      - uses: actions/checkout@v4
+      - name: Get latest code
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} # Utilisation du token automatique
-      # ... le reste de votre configuration FTP/SFTP
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ./
