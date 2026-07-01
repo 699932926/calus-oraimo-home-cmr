@@ -1,8 +1,9 @@
-name: Build et Deploiement pour LWS
+name: Deploy LWS
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,5 +13,5 @@ jobs:
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
-          name: mon-site-dist
-          path: dist
+          name: site-dist
+          path: dist/
